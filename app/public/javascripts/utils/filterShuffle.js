@@ -41,7 +41,8 @@ const shuffle = new Shuffle($('#shuffledCards'), {
   itemSelector: pageTitle === 'Recordings' || pageTitle === 'Cameras'
     ? '.video-cards'
     : '.filter-cards',
-  sizer: '.sizer-item'
+  sizer: '.sizer-item',
+  useTransforms: false
 });
 
 let collectedItems = [];
