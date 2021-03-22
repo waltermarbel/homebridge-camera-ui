@@ -146,8 +146,9 @@ block content
                             a.recording-dl.text-center(href="/recordings/" + recording.fileName download=recording.fileName)
                               i.fas.fa-download
                       else
-                        a.d-flex.justify-content-end.mt-3.recording-dl(href="/recordings/" + recording.fileName target="_self")
-                          i.fas.fa-download
+                        .col.d-flex.justify-content-end
+                          a.recording-dl.text-center(href="/recordings/" + recording.fileName download=recording.fileName)
+                            i.fas.fa-download
               .col-sm-1.sizer-item
           if !recordings.length
             img.container.d-flex.justify-content-center.mw-470(src="/images/web/no_recordings.png", alt=t('views.recordings.no_recordings'))
