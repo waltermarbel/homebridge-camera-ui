@@ -133,8 +133,11 @@ block content
             if !notifications.length
               img.container.d-flex.justify-content-center.mw-470(src="/images/web/no_notifications.png", alt=t('views.notifications.no_notifications'))
 block footscripts
+  script(type='text/javascript').
+    const recordings = !{JSON.stringify(notifications.length)}
   script(type='text/javascript' src='/plugins/daterangepicker/moment.min.js' defer)
   script(type='text/javascript' src='/plugins/daterangepicker/daterangepicker.min.js' defer)
   script(type='text/javascript' src='/plugins/shuffle/shuffle.min.js' defer)
   script(type='text/javascript' src='/javascripts/utils/filterShuffle.js' defer)
   script(type='text/javascript' src='/javascripts/views/notifications.js' defer)
+  

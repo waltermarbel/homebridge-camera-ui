@@ -70,8 +70,6 @@ html
     if title && title !== 'Login'
       link(rel='stylesheet' href='/plugins/lightcase/lightcase.css' type='text/css')
       link(rel='stylesheet' href='/plugins/toast/toast.min.css' type='text/css')
-      if title !== 'CamViews'
-        link(rel='stylesheet', href='/plugins/aos/aos.css')
     block head
     script(type='text/javascript').
       var eventHandler = function(event) {
@@ -148,9 +146,8 @@ script(type='text/javascript' src='/javascripts/modules/safearea.min.js' defer)
 script(type='text/javascript' src='/javascripts/modules/bootstrap.bundle.min.js' defer)
 script(type='text/javascript' src='/javascripts/utils/detectswipe.js' defer)
 script(type='text/javascript' src='/plugins/toast/toast.min.js' defer)
-if title && title !== 'CamViews'
+if title && title !== 'CamViews' && title !== 'Login'
   script(type='text/javascript' src='/plugins/lightcase/lightcase.js' defer)
-  script(type='text/javascript' src='/plugins/aos/aos.js' defer)
 script(type='text/javascript' src='/javascripts/main.js' defer)
 if title && title !== 'Login'
   script(type='text/javascript' src='/javascripts/utils/socket.js' defer)

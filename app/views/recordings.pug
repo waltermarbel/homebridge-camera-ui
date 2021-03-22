@@ -123,11 +123,12 @@ block content
             #shuffledCards.row.justify-content-center.horizontal-direction
               each recording in recordings
                 - name = recording.originName;
+                - shortName = recording.originName.replace(/\s/g,"_");
                 - room = recording.room;
                 - fileType = recording.fileType;
                 - date = recording.time;
                 - shortRoom = recording.room.replace(/\s/g,"") 
-                .video-cards.col-lg-4.col-md-4.col-12(data-groups=[fileType, room, name], data-date-created=date, data-title=name, data-target=recording.id, data-aos='fade-up', data-aos-delay='100')
+                .video-cards.col-lg-4.col-md-4.col-12(data-groups=[fileType, room, name], data-date-created=date, data-title=name, data-target=recording.id)
                   .card.bg-transparent.no-shadow.recording-card
                     a(href="/files/" + recording.fileName, data-rel="lightcase")
                       img.card-img-top.add-shadow.camera-img(onerror="this.onerror=null;this.src='/images/web/noimg.png';", src="/files/" + ( recording.fileType === "Snapshot" ? recording.fileName : recording.fileName.split(".mp4")[0] + "@2.jpeg"), alt=recording.originName)
@@ -135,7 +136,7 @@ block content
                       .row.card-title-cameras
                         .col.text-center
                           h5.card-title-camera.text-truncate.picture-item__title= recording.originName
-                      .card-text-cameras.text-center= recording.fileName
+                      .card-text-cameras.text-center= recording.fileName.split(shortName + '-')[1]
                       .card-text-cameras.text-center= t('views.recordings.room') + ': ' + room
                       .card-text-cameras.text-center.mt-3.text-color-pink= t('views.recordings.info') + ' ' + recording.time
                       if role === 'Master'
@@ -153,6 +154,8 @@ block content
           if !recordings.length
             img.container.d-flex.justify-content-center.mw-470(src="/images/web/no_recordings.png", alt=t('views.recordings.no_recordings'))
 block footscripts
+  script(type='text/javascript').
+    const recordings = !{JSON.stringify(recordings.length)}
   script(type='text/javascript' src='/plugins/daterangepicker/moment.min.js' defer)
   script(type='text/javascript' src='/plugins/daterangepicker/daterangepicker.min.js' defer)
   script(type='text/javascript' src='/plugins/shuffle/shuffle.min.js' defer)
