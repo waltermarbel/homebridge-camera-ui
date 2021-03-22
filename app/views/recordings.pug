@@ -127,7 +127,7 @@ block content
                 - fileType = recording.fileType;
                 - date = recording.time;
                 - shortRoom = recording.room.replace(/\s/g,"") 
-                .video-cards.col-lg-4.col-md-4.col-12(data-groups=[fileType, room, name], data-date-created=date, data-title=name, data-target=recording.id)
+                .video-cards.col-lg-4.col-md-4.col-12(data-groups=[fileType, room, name], data-date-created=date, data-title=name, data-target=recording.id, data-aos='fade-up', data-aos-delay='100')
                   .card.bg-transparent.no-shadow.recording-card
                     a(href="/files/" + recording.fileName, data-rel="lightcase")
                       img.card-img-top.add-shadow.camera-img(onerror="this.onerror=null;this.src='/images/web/noimg.png';", src="/files/" + ( recording.fileType === "Snapshot" ? recording.fileName : recording.fileName.split(".mp4")[0] + "@2.jpeg"), alt=recording.originName)

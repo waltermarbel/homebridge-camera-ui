@@ -84,7 +84,7 @@ module.exports = (auth, db_users) => {
      
       }
      
-      if (req.user.role === 'Master' || req.user.role === 'Administrator') {
+      if (req.user.role === 'Master'/* || req.user.role === 'Administrator'*/) {
         return next();
       } else {
         return next(createError(403));

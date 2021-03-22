@@ -1,7 +1,6 @@
 extends layout
 
 block head
-  link(rel='stylesheet', href='/plugins/aos/aos.css')
 
 block content
   body(style="display: none")
@@ -146,7 +145,6 @@ block content
               img.col.mw-470(src="/images/web/no_cameras.png", alt="No Cameras")
 block footscripts
   script(type='text/javascript' src='/javascripts/modules/jsmpeg.min.js' defer)
-  script(type='text/javascript' src='/plugins/aos/aos.js' defer)
   script(type='text/javascript').
     function getCameras(){
       return !{JSON.stringify(cameras)};
