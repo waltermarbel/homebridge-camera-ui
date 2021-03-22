@@ -238,6 +238,7 @@ block content
                                         .form-group.mb-0.mt-2
                                           label=t('views.settings.views.profile.user_new_role')
                                             input.form-control.form-control(value=user.role name="users[" + id + "][role]" readonly="")
+            if role === 'Master' || (role !== 'Master' && !theme)
             #general.page.col-12.p-0
                 .innerContainer
                   if role === 'Master'
@@ -833,4 +834,4 @@ block footscripts
   script(type='text/javascript' src='/javascripts/modules/jquery.serializeJSON.js' defer)
   script(type='text/javascript' src='/javascripts/modules/bootstrap-select.min.js' defer)
   script(type='text/javascript' src='/javascripts/views/settings.js' defer)
-  
+ 
