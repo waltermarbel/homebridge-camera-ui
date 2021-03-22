@@ -118,7 +118,8 @@ block content
             .row.d-flex.align-items-center.p-2.horizontal-btn-direction-settings(class=roleClass)
               if !noAuth
                 a.m-1.btn.btn-settings.scrollitem.subActive(href='#profile')=t('views.settings.subnavigation.profile')
-                a.m-1.btn.btn-settings.scrollitem(href='#general')=t('views.settings.subnavigation.general')
+                if role === 'Master' || (role !== 'Master' && !theme)
+                  a.m-1.btn.btn-settings.scrollitem(href='#general')=t('views.settings.subnavigation.general')
               else
                 a.m-1.btn.btn-settings.scrollitem.subActive(href='#general')=t('views.settings.subnavigation.general')
               if role === 'Master'
@@ -239,84 +240,84 @@ block content
                                           label=t('views.settings.views.profile.user_new_role')
                                             input.form-control.form-control(value=user.role name="users[" + id + "][role]" readonly="")
             if role === 'Master' || (role !== 'Master' && !theme)
-            #general.page.col-12.p-0
-                .innerContainer
-                  if role === 'Master'
-                    .container.mbc-40
-                      h3.settings-box-title=t('views.settings.views.general.title')
-                      ul.settings-box.w-100
-                        li.row.m-0.p-0.justify-content-center.break-text.pt-1.pb-1
-                          .col-8
-                            i.fas.fa-info-circle.popover-dismiss(tabindex="0" data-toggle="popover" data-placement="bottom" data-trigger="hover" title=t('views.settings.views.general.athome') data-content=t('views.settings.views.general.athome_info'))
-                            span=' ' + t('views.settings.views.general.athome') 
-                          .col-4.text-right.text-color-pink
-                            label.form-switch.m-0
-                              if settings.general.atHome
-                                input(type="checkbox", name="general[atHome]", checked)
+              #general.page.col-12.p-0
+                  .innerContainer
+                    if role === 'Master'
+                      .container.mbc-40
+                        h3.settings-box-title=t('views.settings.views.general.title')
+                        ul.settings-box.w-100
+                          li.row.m-0.p-0.justify-content-center.break-text.pt-1.pb-1
+                            .col-8
+                              i.fas.fa-info-circle.popover-dismiss(tabindex="0" data-toggle="popover" data-placement="bottom" data-trigger="hover" title=t('views.settings.views.general.athome') data-content=t('views.settings.views.general.athome_info'))
+                              span=' ' + t('views.settings.views.general.athome') 
+                            .col-4.text-right.text-color-pink
+                              label.form-switch.m-0
+                                if settings.general.atHome
+                                  input(type="checkbox", name="general[atHome]", checked)
+                                else
+                                  input(type="checkbox", name="general[atHome]")
+                                i
+                          li.row.m-0.p-0.justify-content-center.break-text.pt-1.pb-1
+                            .col-7
+                              i.fas.fa-info-circle.popover-dismiss(tabindex="0" data-toggle="popover" data-placement="bottom" data-trigger="hover" title=t('views.settings.views.general.exclude') data-content=t('views.settings.views.general.exclude_info'))
+                              span=' ' + t('views.settings.views.general.exclude') 
+                            .col-5.text-right.text-color-pink
+                              .form-group.mt-3.mb-0
+                                label
+                                  select.selectpicker(name="general[exclude][]", multiple, data-selected-text-format="count")
+                                    each cam in Object.keys(settings.cameras)
+                                      - found = false
+                                      for entry in settings.general.exclude
+                                        if cam === entry
+                                          option(selected)= cam
+                                          - found = true
+                                      if !found
+                                        option= cam
+                    if !theme
+                      .container.mbc-40
+                        h3.settings-box-title=t('views.settings.views.general.themes_title')
+                        ul.settings-box.w-100
+                          li.row.m-0.p-0.justify-content-center.break-text.pt-1.pb-1
+                            .col-8=t('views.settings.views.general.themes_darkmode')
+                            .col-4.text-right.text-color-pink
+                              label.form-switch.m-0.darkmode-switch
+                                input(type="checkbox", name="general[darkmode]")
+                                i
+                          li.row.m-0.p-0.justify-content-center.break-text.pt-1.pb-1
+                            .col-5=t('views.settings.views.general.themes_themes')
+                            .col-7.text-right.text-color-pink.position-relative
+                              input#switch-pink.theme-switches.switch-pink(type="radio", name="themes-group")
+                              label(for="switch-pink")
+                              input#switch-blue.theme-switches.switch-blue(type="radio", name="themes-group")
+                              label(for="switch-blue")
+                              input#switch-yellow.theme-switches.switch-yellow(type="radio", name="themes-group")
+                              label(for="switch-yellow")
+                              input#switch-green.theme-switches.switch-green(type="radio", name="themes-group")
+                              label(for="switch-green")
+                              input#switch-gray.theme-switches.switch-gray(type="radio", name="themes-group")
+                              label(for="switch-gray")
+                    if role === 'Master'
+                      .container.mbc-40
+                        h3.settings-box-title=t('views.settings.views.general.rooms_title')
+                        ul#rooms.settings-box.w-100
+                          li.row.m-0.p-0.justify-content-center.break-text.mt-1.pt-1.pb-1
+                            .col-8
+                              .form-group.m-0.w-100.mb-2
+                                label
+                                  input#roomName.form-control.form-control(type="text", data-toggle='popover', placeholder=t('views.settings.views.general.rooms_name'), data-name=t('views.settings.views.general.rooms_name'))
+                            .col-4.text-right.text-success
+                              i#addRoom.fa.fa-plus-circle
+                          for room in settings.general.rooms
+                            - id = room.replace(/\s/g,"");
+                            li.row.m-0.p-0.justify-content-center.break-text.pt-1.pb-1(id=id)
+                              if room !== 'Standard'
+                                .col-8= room
+                                  input.form-control(type="hidden", name="general[rooms][]", value=room)
+                                .col-4.text-right.text-color-pink
+                                  i.fa.fa-minus-circle.removeRoom(data-target=room)
                               else
-                                input(type="checkbox", name="general[atHome]")
-                              i
-                        li.row.m-0.p-0.justify-content-center.break-text.pt-1.pb-1
-                          .col-7
-                            i.fas.fa-info-circle.popover-dismiss(tabindex="0" data-toggle="popover" data-placement="bottom" data-trigger="hover" title=t('views.settings.views.general.exclude') data-content=t('views.settings.views.general.exclude_info'))
-                            span=' ' + t('views.settings.views.general.exclude') 
-                          .col-5.text-right.text-color-pink
-                            .form-group.mt-3.mb-0
-                              label
-                                select.selectpicker(name="general[exclude][]", multiple, data-selected-text-format="count")
-                                  each cam in Object.keys(settings.cameras)
-                                    - found = false
-                                    for entry in settings.general.exclude
-                                      if cam === entry
-                                        option(selected)= cam
-                                        - found = true
-                                    if !found
-                                      option= cam
-                  if !theme
-                    .container.mbc-40
-                      h3.settings-box-title=t('views.settings.views.general.themes_title')
-                      ul.settings-box.w-100
-                        li.row.m-0.p-0.justify-content-center.break-text.pt-1.pb-1
-                          .col-8=t('views.settings.views.general.themes_darkmode')
-                          .col-4.text-right.text-color-pink
-                            label.form-switch.m-0.darkmode-switch
-                              input(type="checkbox", name="general[darkmode]")
-                              i
-                        li.row.m-0.p-0.justify-content-center.break-text.pt-1.pb-1
-                          .col-5=t('views.settings.views.general.themes_themes')
-                          .col-7.text-right.text-color-pink.position-relative
-                            input#switch-pink.theme-switches.switch-pink(type="radio", name="themes-group")
-                            label(for="switch-pink")
-                            input#switch-blue.theme-switches.switch-blue(type="radio", name="themes-group")
-                            label(for="switch-blue")
-                            input#switch-yellow.theme-switches.switch-yellow(type="radio", name="themes-group")
-                            label(for="switch-yellow")
-                            input#switch-green.theme-switches.switch-green(type="radio", name="themes-group")
-                            label(for="switch-green")
-                            input#switch-gray.theme-switches.switch-gray(type="radio", name="themes-group")
-                            label(for="switch-gray")
-                  if role === 'Master'
-                    .container.mbc-40
-                      h3.settings-box-title=t('views.settings.views.general.rooms_title')
-                      ul#rooms.settings-box.w-100
-                        li.row.m-0.p-0.justify-content-center.break-text.mt-1.pt-1.pb-1
-                          .col-8
-                            .form-group.m-0.w-100.mb-2
-                              label
-                                input#roomName.form-control.form-control(type="text", data-toggle='popover', placeholder=t('views.settings.views.general.rooms_name'), data-name=t('views.settings.views.general.rooms_name'))
-                          .col-4.text-right.text-success
-                            i#addRoom.fa.fa-plus-circle
-                        for room in settings.general.rooms
-                          - id = room.replace(/\s/g,"");
-                          li.row.m-0.p-0.justify-content-center.break-text.pt-1.pb-1(id=id)
-                            if room !== 'Standard'
-                              .col-8= room
-                                input.form-control(type="hidden", name="general[rooms][]", value=room)
-                              .col-4.text-right.text-color-pink
-                                i.fa.fa-minus-circle.removeRoom(data-target=room)
-                            else
-                              .col= room
-                                input.form-control(type="hidden", name="general[rooms][]", value=room)
+                                .col= room
+                                  input.form-control(type="hidden", name="general[rooms][]", value=room)
             if role === 'Master'
               #dashboard.page.col-12.p-0
                 .innerContainer
@@ -834,4 +835,3 @@ block footscripts
   script(type='text/javascript' src='/javascripts/modules/jquery.serializeJSON.js' defer)
   script(type='text/javascript' src='/javascripts/modules/bootstrap-select.min.js' defer)
   script(type='text/javascript' src='/javascripts/views/settings.js' defer)
-  
