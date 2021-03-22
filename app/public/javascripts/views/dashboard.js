@@ -9,7 +9,13 @@
   let userActive = true;
   let snapshotInterval;
   let player;
-    
+  
+  // Init AOS
+  AOS.init({
+    duration: 1000,
+    once: true,
+  });
+               
   $('.fs-arrow-db').on('click', function(e){
     
     let bg = $('.fs-bg');

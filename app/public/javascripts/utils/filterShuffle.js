@@ -42,7 +42,13 @@ const shuffle = new Shuffle($('#shuffledCards'), {
     ? '.video-cards'
     : '.filter-cards',
   sizer: '.sizer-item',
-  useTransforms: false
+  useTransforms: pageTitle === 'Recordings'
+    ? recordings > 50
+      ? false
+      : true
+    : notifications > 50
+      ? false
+      : true
 });
 
 let collectedItems = [];
