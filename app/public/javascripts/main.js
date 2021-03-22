@@ -7,6 +7,20 @@
 
   let theme = getTheme();
   
+  // Init AOS
+  function aos_init() {
+    try {
+      AOS.init({
+        duration: 1000,
+        once: true,
+      });
+    } catch(err){
+      console.debug(err)
+    }
+  }
+  
+  aos_init();
+  
   //Toaster
   $.toastDefaults = {
     position: 'bottom-center',

@@ -42,16 +42,6 @@
     
   });
   
-  // Init AOS
-  function aos_init() {
-    AOS.init({
-      duration: 1000,
-      once: true,
-    });
-  }
-  
-  aos_init();
-  
   $(window).scroll(function () {
     if ($(document).scrollTop() > 50) {
       let imgSrc;

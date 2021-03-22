@@ -4323,6 +4323,14 @@ a>i:hover {
   color: #ffffff;
 }
 
+/*--------------------------------------------------------------
+# Cards height
+--------------------------------------------------------------*/
+
+.card-img-top {
+  max-height: 230px;
+  object-fit: cover;
+}
 
 /*--------------------------------------------------------------
 # Queries
@@ -4539,6 +4547,9 @@ a>i:hover {
   .form-apply {
     width: unset;
   }
+  .card-img-top {
+    max-height: 100px;
+  }
 }
 
 @media (min-width: 992px) {
@@ -4562,6 +4573,9 @@ a>i:hover {
   .nav-desk {
     display: flex!important;
   }
+  .card-img-top {
+    max-height: 145px;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -4573,5 +4587,8 @@ a>i:hover {
   }
   .nav-desk {
     font-size: 0.9rem;
+  }
+  .card-img-top {
+    max-height: 180px;
   }
 }
